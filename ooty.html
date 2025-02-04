@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ta'al Hotel - Ooty Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Ta'al Hotel - Ooty</h1>
+        <p>Book your stay in Ooty.</p>
+    </header>
+
+    <div class="booking-container">
+        <h2>Choose Your Room</h2>
+        <form action="/submit-booking" method="POST">
+            <label for="check-in">Check-in:</label>
+            <input type="date" id="check-in" name="check-in" required><br><br>
+
+            <label for="check-out">Check-out:</label>
+            <input type="date" id="check-out" name="check-out" required><br><br>
+
+            <label for="room-type">Room Type:</label>
+            <select id="room-type" name="room-type">
+                <option value="single">Single Room</option>
+                <option value="double">Double Room</option>
+                <option value="suite">Suite</option>
+            </select><br><br>
+
+            <button type="submit">Book Now</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Ta'al Hotel. All rights reserved.</p>
+    </footer>
+</body>
+</html>

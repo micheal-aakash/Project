@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ta'al Hotel - Chennai Booking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>STAR Hotel - Chennai</h1>
+            <p>Book your stay with comfort and luxury.</p>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <h2>Hotel Locations</h2>
+            <ul>
+                <li><a href="chennai.html" class="active">Chennai</a></li>
+                <li><a href="ooty.html">Ooty</a></li>
+                <li><a href="kodaikanal.html">Kodaikanal</a></li>
+                <li><a href="tuticorin.html">Tuticorin</a></li>
+            </ul>
+        </aside>
+
+        <div class="content">
+            <section class="hotel-images">
+                <h2>Explore STAR Hotel in Chennai</h2>
+                <div class="image-gallery">
+                    <img src="Exterior.jpg" alt="Hotel Exterior" class="hotel-image">
+                    <img src="suiteroom.jpg" alt="Hotel Room" class="hotel-image">
+                    <img src="hotellobby.jpg" alt="Hotel Lobby" class="hotel-image">
+                </div>
+            </section>
+
+            <section class="booking-container">
+                <h2>Choose Your Room</h2>
+                <form action="confirmation.html" method="GET">
+                    <div class="form-group">
+                        <label for="room-type">Room Type:</label>
+                        <select id="room-type" name="room-type" required>
+                            <option value="single">Single Room</option>
+                            <option value="double">Double Room</option>
+                            <option value="suite">Suite</option>
+                        </select>
+                    </div>
+
+                    <div class="room-details" id="room-details">
+                        <p><strong>Room Price:</strong> ₹5000</p>   
+                    </div>
+
+                    <button type="submit" class="btn-primary">Proceed to Confirmation</button>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Ta'al Hotel. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const roomType = document.getElementById('room-type');
+        const roomDetails = document.getElementById('room-details');
+        
+        roomType.addEventListener('change', function() {
+            let price = 0;
+            if (roomType.value === 'single') {
+                price = 5000;
+            } else if (roomType.value === 'double') {
+                price = 8000;
+            } else if (roomType.value === 'suite') {
+                price = 12000;
+            }
+            roomDetails.innerHTML = `<p><strong>Room Price:</strong> ₹${price}</p>`;
+        });
+    </script>
+</body>
+</html>

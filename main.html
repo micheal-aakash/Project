@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <title>STAR Hotel Online Booking</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        function initMap() {
+                       var map = L.map('map').setView([11.1271, 78.6569], 6);
+
+                       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+                       var locations = [
+                {name: 'Chennai', lat: 13.0827, lng: 80.2707, url: 'chennai.html'},
+                {name: 'Ooty', lat: 11.4090, lng: 76.6947, url: 'ooty.html'},
+                {name: 'Kodaikanal', lat: 10.2380, lng: 77.4890, url: 'kodaikanal.html'},
+                {name: 'Tuticorin', lat: 8.7640, lng: 78.1338, url: 'tuticorin.html'}
+            ];
+
+           
+            locations.forEach(function(location) {
+                var marker = L.marker([location.lat, location.lng]).addTo(map)
+                    .bindPopup('<b>' + location.name + '</b>')
+                    .on('click', function() {
+                        window.location.href = location.url;
+                    });
+            });
+        }
+    </script>
+</head>
+<body onload="initMap()">
+    <header>
+        <h1>Welcome to STAR Hotel</h1>
+        <p>Book your stay at our hotel locations in Tamil Nadu</p>
+    </header>
+
+    <div class="hotel-map">
+        <h2>Select a location:</h2>
+        <div id="map" style="height: 500px; width: 100%;"></div> 
+    </div>
+
+    <footer>
+        <p>&copy; 2025 STAR Hotel. All rights reserved.</p>
+    </footer>
+</body>
+</html>

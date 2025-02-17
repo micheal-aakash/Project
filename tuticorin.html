@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STAR Hotel - Tuticorin Booking</title>
+    <title>Ta'al Hotel - Tuticorin Booking</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -38,16 +38,7 @@
 
             <section class="booking-container">
                 <h2>Choose Your Room</h2>
-                <form action="process_booking.php" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="username">Admin Username:</label>
-                        <input type="text" id="username" name="username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Admin Password:</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    
+                <form action="/submit-booking" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">Full Name:</label>
                         <input type="text" id="name" name="name" required>
@@ -57,16 +48,24 @@
                         <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" required>
                     </div>
                     <div class="form-group">
+                        <label for="aadhar">Aadhar Number:</label>
+                        <input type="text" id="aadhar" name="aadhar" pattern="[0-9]{12}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nativity">Nativity:</label>
+                        <input type="text" id="nativity" name="nativity" required>
+                    </div>
+                    <div class="form-group">
                         <label for="email">Email Address:</label>
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="address">Address:</label>
-                        <textarea id="address" name="address" required></textarea>
-                    </div>
-                    <div class="form-group">
                         <label for="persons">Number of Persons:</label>
                         <input type="number" id="persons" name="persons" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="id-proof">Upload ID Proof:</label>
+                        <input type="file" id="id-proof" name="id-proof" accept="image/*, .pdf" required>
                     </div>
                     <div class="form-group">
                         <label for="check-in">Check-in:</label>
@@ -79,32 +78,10 @@
                     <div class="form-group">
                         <label for="room-type">Room Type:</label>
                         <select id="room-type" name="room-type">
-                            <option value="Single">Single Room</option>
-                            <option value="Double">Double Room</option>
-                            <option value="Suite">Suite</option>
-                            <option value="Deluxe">Deluxe</option>
+                            <option value="single">Single Room</option>
+                            <option value="double">Double Room</option>
+                            <option value="suite">Suite</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="payment-method">Payment Method:</label>
-                        <select id="payment-method" name="payment-method">
-                            <option value="Cash">Cash</option>
-                            <option value="Credit Card">Credit Card</option>
-                            <option value="UPI">UPI</option>
-                            <option value="Net Banking">Net Banking</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="payment-status">Payment Status:</label>
-                        <select id="payment-status" name="payment-status">
-                            <option value="Pending">Pending</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Refunded">Refunded</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="accommodation">Additional Services:</label>
-                        <input type="text" id="accommodation" name="accommodation" placeholder="e.g., Spa, Breakfast, Airport Pickup">
                     </div>
                     <button type="submit" class="btn-primary">Book Now</button>
                 </form>
@@ -113,7 +90,7 @@
     </div>
 
     <footer>
-        <p>&copy; 2025 STAR Hotel. All rights reserved.</p>
+        <p>&copy; 2025 Ta'al Hotel. All rights reserved.</p>
     </footer>
 </body>
 </html>

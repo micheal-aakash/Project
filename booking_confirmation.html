@@ -1,0 +1,107 @@
+<?php
+// Database connection
+$servername = "localhost";
+$username = "root"; // Change this based on your DB credentials
+$password = "";
+$database = "hotel_booking";
+
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Create table if it doesn't exist
+$table_sql = "CREATE TABLE IF NOT EXISTS booking_confirmation (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    room_type VARCHAR(50) NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    phone VARCHAR(10) NOT NULL,
+    address TEXT NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    check_in DATE NOT NULL,
+    check_out DATE NOT NULL,
+    guests INT NOT NULL
+)";
+$conn->query($table_sql);
+
+// Insert booking confirmation data into the table
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $roomType = $_POST["room-type"];
+    $name = $_POST["name"];
+    $phone = $_POST["phone"];
+    $address = $_POST["address"];
+    $email = $_POST["email"];
+    $checkIn = $_POST["check-in"];
+    $checkOut = $_POST["check-out"];
+    $guests = $_POST["guests"];
+
+    $insert_sql = "INSERT INTO booking_confirmation (room_type, name, phone, address, email, check_in, check_out, guests)
+                   VALUES ('$roomType', '$name', '$phone', '$address', '$email', '$checkIn', '$checkOut', '$guests')";
+
+    if ($conn->query($insert_sql) === TRUE) {
+        echo "<script>alert('Booking confirmed successfully!'); window.location.href='confirmation_page.php';</script>";
+    } else {
+        echo "Error: " . $conn->error;
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Booking</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Confirm Your Booking</h1>
+    </header>
+
+    <div class="main-container">
+        <section class="booking-container">
+            <h2>Booking Details</h2>
+            <form action="" method="POST">
+                <input type="hidden" id="room-type" name="room-type">
+                <input type="hidden" id="name" name="name">
+                <input type="hidden" id="phone" name="phone">
+                <input type="hidden" id="address" name="address">
+                <input type="hidden" id="email" name="email">
+
+                <div class="form-group">
+                    <label for="check-in">Check-in Date:</label>
+                    <input type="date" id="check-in" name="check-in" required>
+                </div>
+                <div class="form-group">
+                    <label for="check-out">Check-out Date:</label>
+                    <input type="date" id="check-out" name="check-out" required>
+                </div>
+                <div class="form-group">
+                    <label for="guests">Number of Guests:</label>
+                    <input type="number" id="guests" name="guests" min="1" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Confirm Booking</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Ta'al Hotel. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            document.getElementById("room-type").value = urlParams.get("room-type");
+            document.getElementById("name").value = urlParams.get("name");
+            document.getElementById("phone").value = urlParams.get("phone");
+            document.getElementById("address").value = urlParams.get("address");
+            document.getElementById("email").value = urlParams.get("email");
+        };
+    </script>
+</body>
+</html>

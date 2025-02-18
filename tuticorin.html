@@ -38,53 +38,22 @@
 
             <section class="booking-container">
                 <h2>Choose Your Room</h2>
-                <form action="/submit-booking" method="POST" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="name">Full Name:</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact">Contact Number:</label>
-                        <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="aadhar">Aadhar Number:</label>
-                        <input type="text" id="aadhar" name="aadhar" pattern="[0-9]{12}" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nativity">Nativity:</label>
-                        <input type="text" id="nativity" name="nativity" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address:</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="persons">Number of Persons:</label>
-                        <input type="number" id="persons" name="persons" min="1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="id-proof">Upload ID Proof:</label>
-                        <input type="file" id="id-proof" name="id-proof" accept="image/*, .pdf" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="check-in">Check-in:</label>
-                        <input type="date" id="check-in" name="check-in" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="check-out">Check-out:</label>
-                        <input type="date" id="check-out" name="check-out" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="room-type">Room Type:</label>
-                        <select id="room-type" name="room-type">
-                            <option value="single">Single Room</option>
-                            <option value="double">Double Room</option>
-                            <option value="suite">Suite</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-primary">Book Now</button>
-                </form>
+                <div class="form-group">
+                    <label for="room-type">Room Type:</label>
+                    <select id="room-type" name="room-type" onchange="updateRate()">
+                        <option value="" selected disabled>Select a Room</option>
+                        <option value="single" data-rate="2000">Single Room - ₹2000</option>
+                        <option value="double" data-rate="3500">Double Room - ₹3500</option>
+                        <option value="suite" data-rate="6000">Suite - ₹6000</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="room-rate">Room Rate:</label>
+                    <input type="text" id="room-rate" name="room-rate" readonly placeholder="Select a room type">
+                </div>
+
+                <button type="button" class="btn-primary" onclick="proceedToCustomerDetails()">Proceed</button>
             </section>
         </div>
     </div>
@@ -92,5 +61,26 @@
     <footer>
         <p>&copy; 2025 Ta'al Hotel. All rights reserved.</p>
     </footer>
+
+    <script>
+        function updateRate() {
+            let roomSelect = document.getElementById("room-type");
+            let selectedOption = roomSelect.options[roomSelect.selectedIndex];
+            let rate = selectedOption.getAttribute("data-rate");
+            document.getElementById("room-rate").value = rate ? `₹${rate}` : "";
+        }
+
+        function proceedToCustomerDetails() {
+            let roomSelect = document.getElementById("room-type");
+            let selectedOption = roomSelect.options[roomSelect.selectedIndex];
+
+            if (roomSelect.value) {
+                let rate = selectedOption.getAttribute("data-rate");
+                window.location.href = `customer_details.html?room-type=${roomSelect.value}&room-rate=${rate}`;
+            } else {
+                alert("Please select a room type before proceeding.");
+            }
+        }
+    </script>
 </body>
 </html>

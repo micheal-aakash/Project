@@ -1,0 +1,100 @@
+<?php
+// Database Connection
+$servername = "localhost";
+$username = "root"; // Change this based on your DB credentials
+$password = "";
+$database = "hotel_booking";
+
+$conn = new mysqli($servername, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Create table if not exists
+$table_sql = "CREATE TABLE IF NOT EXISTS customer_details (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    phone VARCHAR(10) NOT NULL,
+    address TEXT NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    room_type VARCHAR(50) NOT NULL
+)";
+$conn->query($table_sql);
+
+// Insert Data into the Table
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST["name"];
+    $phone = $_POST["phone"];
+    $address = $_POST["address"];
+    $email = $_POST["email"];
+    $roomType = $_POST["room-type"];
+
+    $insert_sql = "INSERT INTO customer_details (name, phone, address, email, room_type) 
+                   VALUES ('$name', '$phone', '$address', '$email', '$roomType')";
+
+    if ($conn->query($insert_sql) === TRUE) {
+        echo "<script>alert('Booking details saved successfully!'); window.location.href='booking_confirmation.html';</script>";
+    } else {
+        echo "Error: " . $conn->error;
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Enter Your Details</h1>
+    </header>
+
+    <div class="main-container">
+        <section class="booking-container">
+            <h2>Fill in your details</h2>
+            <form action="" method="POST">
+                <input type="hidden" id="room-type" name="room-type">
+
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <button type="submit" class="btn-primary">Save & Continue</button>
+            </form>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Ta'al Hotel. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const roomType = urlParams.get("room-type");
+            if (roomType) {
+                document.getElementById("room-type").value = roomType;
+            }
+        };
+    </script>
+</body>
+</html>
